@@ -51,7 +51,7 @@ function sendMessage (event) {
 function addMessage ( author, content ) {
   const message = document.createElement('li');
   message.classList.add('message');
-  message.classList.addd('message--received');
+  message.classList.add('message--received');
   if (author === userName) {
     message.classList.add('message--self')
   }
