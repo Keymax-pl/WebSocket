@@ -9,8 +9,6 @@ const messageContentInput = document.getElementById('message-content');
 
 let userName = '';
 
-socket.on('message', addMessage);
-
 socket.on('message', ({ author, content }) => addMessage(author, content))
 
 loginForm.addEventListener('submit', function (event) {
@@ -52,7 +50,7 @@ function sendMessage (event) {
   }
 
   addMessage(userName, messageContentValue);
-  socket.emit('message', { author: userName, message: messageContentValue })
+  socket.emit('message', { author: userName, content: messageContentValue })
   messageContentInput.value = '';
 };
 

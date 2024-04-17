@@ -8,6 +8,16 @@ const server = app.listen(8000, () => {
 });
 const io = socket(server);
 
+io.on('connection', (socket) => {
+  console.log('New client! Its id – ' + socket.id);
+
+socket.on('message', (message) => {
+  console.log('Oh, I\'ve got something from ' + socket.id);
+  messages.push(message);
+  socket.broadcast.emit('message', message);
+});
+});
+
 app.use(express.static(path.join(__dirname, '/client')));
 app.use(express.json());
 
