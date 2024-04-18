@@ -11,13 +11,20 @@ let userName = '';
 
 socket.on('message', ({ author, content }) => addMessage(author, content))
 
+socket.on('newUser', (userName) => {
+  addMessage('chat bot', userName + 'User-name has joined the conversation!');
+});
+socket.on('userLeft', (userName) => {
+  addMessage('chat bot', userName + 'User-name has left the conversation... :(');
+});
+
 loginForm.addEventListener('submit', function (event) {
   event.preventDefault();
   
   login(event);
 });
 
-function login (event) {
+function login () {
 
 const userNameValue = userNameInput.value.trim();
 
@@ -30,6 +37,7 @@ userName = userNameValue;
 
 loginForm.classList.remove('show');
 messagesSection.classList.add('show');
+socket.emit('join', userName);
 
 };
 
